@@ -1,4 +1,4 @@
-/* eslint-disable indent */
+/* eslint-disable indent */ // преттиер справляется лучше, а он мешает...
 import { TOffer, TOfferDetails } from '../../types/offer';
 import { TUser } from '../../types/user';
 import { TReview } from '../../types/review';
