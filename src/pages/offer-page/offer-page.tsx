@@ -10,7 +10,7 @@ import { favoritesActions, offerDetailsActions, offersActions } from '../../stor
 import { store } from '../../store';
 import { Spinner } from '../../components/spinner';
 import { NotFoundPage } from '../not-found-page';
-import { AppRoute, AuthorizationStatus, MAX_OFFERS_IMAGES_COUNT, MAX_OFFERS_NEARBY_COUNT } from '../../constants';
+import { AppRoute, AuthorizationStatus, MaxCounts } from '../../constants';
 import classNames from 'classnames';
 
 type OfferPageParams = { id: string };
@@ -30,7 +30,7 @@ function OfferPage(): JSX.Element {
   const offersNearby = useSelector((state: State) => state.offers.nearby);
 
   const offersNearbyToShow = useMemo(
-    () => offersNearby.slice(0, MAX_OFFERS_NEARBY_COUNT),
+    () => offersNearby.slice(0, MaxCounts.OffersNearby),
     [offersNearby]
   );
 
@@ -44,7 +44,7 @@ function OfferPage(): JSX.Element {
   );
 
   const imagesToShow = useMemo(
-    () => offer?.images.slice(0, MAX_OFFERS_IMAGES_COUNT) ?? [],
+    () => offer?.images.slice(0, MaxCounts.OffersImages) ?? [],
     [offer?.images]
   );
 

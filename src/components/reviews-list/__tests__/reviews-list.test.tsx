@@ -5,7 +5,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { ReviewsList } from '../reviews-list';
 import { State } from '../../../types/state';
 import { createMockReview } from '../../../store/__tests__/test-utils';
-import { MAX_REVIEWS_COUNT } from '../../../constants';
+import { MaxCounts } from '../../../constants';
 
 vi.mock('../../../store', async () => {
   const actual = await vi.importActual<typeof import('../../../store')>(
@@ -113,7 +113,7 @@ describe('ReviewsList', () => {
   });
 
   it('should limit displayed reviews to MAX_REVIEWS_COUNT', () => {
-    const reviews = Array.from({ length: MAX_REVIEWS_COUNT + 5 }, (_, i) =>
+    const reviews = Array.from({ length: MaxCounts.Reviews + 5 }, (_, i) =>
       createMockReview({ id: String(i), comment: `Review ${i}` })
     );
 
@@ -135,7 +135,7 @@ describe('ReviewsList', () => {
     expect(screen.getByText(String(reviews.length))).toBeInTheDocument();
 
     const reviewItems = screen.getAllByRole('listitem');
-    expect(reviewItems.length).toBeLessThanOrEqual(MAX_REVIEWS_COUNT);
+    expect(reviewItems.length).toBeLessThanOrEqual(MaxCounts.Reviews);
   });
 
   it('should display empty list when no reviews', () => {

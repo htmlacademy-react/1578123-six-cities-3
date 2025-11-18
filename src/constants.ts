@@ -85,13 +85,16 @@ export const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
 
 export const AUTH_TOKEN_KEY = 'six-cities-auth-token';
 
-export const MAX_REVIEWS_COUNT = 10;
+export const MaxCounts = {
+  Reviews: 10,
+  OffersNearby: 3,
+  OffersImages: 6
+} as const;
 
-export const MAX_OFFERS_NEARBY_COUNT = 3;
-export const MAX_OFFERS_IMAGES_COUNT = 6;
-
-export const MIN_COMMENT_LENGTH = 50;
-export const MAX_COMMENT_LENGTH = 250;
+export const CommentsLength = {
+  Min: 50,
+  Max: 250
+} as const;
 
 export const MAP_TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 

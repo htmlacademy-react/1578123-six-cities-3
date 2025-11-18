@@ -4,7 +4,7 @@ import { favoritesActions, store } from '../../store';
 import { AppRoute, AuthorizationStatus } from '../../constants';
 import { State } from '../../types/state';
 import { useSelector } from 'react-redux';
-import { CITIES_IMAGE_HEIGHT, CITIES_IMAGE_WIDTH, FAVORITES_IMAGE_HEIGHT, FAVORITES_IMAGE_WIDTH } from './constants';
+import { CitiesImageSize, FavoritesImageSize } from './constants';
 
 type PlaceCardProps = {
   offer: TOffer;
@@ -21,6 +21,7 @@ export function PlaceCard({
 }: PlaceCardProps): JSX.Element {
   const navigate = useNavigate();
   const authorizationStatus = useSelector((state: State) => state.auth.status);
+
   const handleBookmarkClick = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoute.Login);
@@ -33,6 +34,7 @@ export function PlaceCard({
       })
     );
   };
+
   const isFavorite = authorizationStatus === AuthorizationStatus.Auth && offer.isFavorite;
 
   return (
@@ -47,27 +49,17 @@ export function PlaceCard({
         </div>
       )}
       <div className={`${viewMode}__image-wrapper place-card__image-wrapper`}>
-        <img
-          className="place-card__image"
-          src={offer.previewImage}
-          width={
-            viewMode === 'favorites'
-              ? FAVORITES_IMAGE_WIDTH
-              : CITIES_IMAGE_WIDTH
-          }
-          height={
-            viewMode === 'favorites'
-              ? FAVORITES_IMAGE_HEIGHT
-              : CITIES_IMAGE_HEIGHT
-          }
-          alt="Place image"
-        />
+        <Link to={AppRoute.Offer.replace(':id', offer.id)}>
+          <img
+            className="place-card__image"
+            src={offer.previewImage}
+            width={viewMode === 'favorites' ? FavoritesImageSize.Width : CitiesImageSize.Width}
+            height={viewMode === 'favorites' ? FavoritesImageSize.Height : CitiesImageSize.Height}
+            alt="Place image"
+          />
+        </Link>
       </div>
-      <div
-        className={`place-card__info ${
-          viewMode === 'favorites' ? 'favorites__card-info' : ''
-        }`}
-      >
+      <div className={`place-card__info ${viewMode === 'favorites' ? 'favorites__card-info' : ''}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{offer.price}</b>

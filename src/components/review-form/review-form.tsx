@@ -3,7 +3,7 @@ import { RatingStar, TRatingValue } from '../rating-star';
 import { useSelector } from 'react-redux';
 import { State } from '../../types/state';
 import { store, reviewsActions } from '../../store';
-import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../constants';
+import { CommentsLength } from '../../constants';
 
 const RATING_VALUES: TRatingValue[] = [5, 4, 3, 2, 1];
 
@@ -37,8 +37,8 @@ export function ReviewForm({ offerId }: { offerId: string }): JSX.Element {
 
   const isValid = useMemo(
     () =>
-      formData.comment.length >= MIN_COMMENT_LENGTH &&
-      formData.comment.length <= MAX_COMMENT_LENGTH &&
+      formData.comment.length >= CommentsLength.Min &&
+      formData.comment.length <= CommentsLength.Max &&
       formData.rating > 0,
     [formData]
   );
@@ -70,10 +70,9 @@ export function ReviewForm({ offerId }: { offerId: string }): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
         value={formData.comment}
-        minLength={MIN_COMMENT_LENGTH}
-        maxLength={MAX_COMMENT_LENGTH}
+        minLength={CommentsLength.Min}
+        maxLength={CommentsLength.Max}
         required
         onChange={(evt) => {
           setFormData({ ...formData, comment: evt.target.value });
@@ -86,7 +85,7 @@ export function ReviewForm({ offerId }: { offerId: string }): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least{' '}
           <b className="reviews__text-amount">
-            {MIN_COMMENT_LENGTH} characters
+            {CommentsLength.Min} characters
           </b>
           .
         </p>
