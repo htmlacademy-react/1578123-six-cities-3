@@ -1,1 +1,1 @@
-export { default } from './useMap';
+export { default } from './use-map';

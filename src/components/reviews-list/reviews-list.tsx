@@ -4,11 +4,11 @@ import { State } from '../../types/state';
 import { useEffect, useMemo } from 'react';
 import { store, reviewsActions } from '../../store';
 import { Spinner } from '../spinner';
-import { MAX_REVIEWS_COUNT } from '../../constants';
+import { MaxCounts } from '../../constants';
 
 export function ReviewsList({ offerId }: { offerId: string }): JSX.Element {
   const reviews = useSelector((state: State) => state.reviews.list);
-  const reviewsSlice = useMemo(() => reviews?.sort((a, b) => (a.date > b.date ? -1 : 1)).slice(0, MAX_REVIEWS_COUNT) ?? [], [reviews]);
+  const reviewsSlice = useMemo(() => reviews.slice(0, MaxCounts.Reviews) ?? [], [reviews]);
 
   const reviewsCount = reviews?.length ?? 0;
   const reviewsLoading = useSelector(
